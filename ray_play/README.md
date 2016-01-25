@@ -1,7 +1,7 @@
-circle play
+ray play
 =======
 
-Given a starting point A and end point B find all paths between them which have K reflections from circles.
+Given a starting point A and end point B find all ray paths between them which have K reflections from circles.
 
 
 
@@ -20,5 +20,6 @@ The program by default loads data/input.txt when started - it's format is:
 
 Controls:
 
-- Up/Down - change
+- Up/Down - change the size of the circle which a mouse click would put.
+- Left/Right - change K - the number of reflections for paths.
 
