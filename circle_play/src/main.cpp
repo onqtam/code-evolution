@@ -56,9 +56,28 @@ void Cleanup();
 bool ReadInput(const char* file);
 void RaytraceAll();
 
+#if defined(_MSC_VER)
+#include <windows.h>
+#include <tchar.h>
+#include <string>
+#endif // _MSC_VER
+
 int main(int argc, char **argv)
 {
-	if(!ReadInput("data/input.txt")) return 1;
+#if defined(_MSC_VER)
+	// fix the current directory so the relative path to the input works both
+	// from inside the debugger and when used directly from the command prompt
+	TCHAR path[MAX_PATH];
+	GetModuleFileName(nullptr, path, MAX_PATH);
+
+	std::string spath = path;
+	size_t pos = spath.find_last_of(_T("\\/"));
+	if (pos != std::string::npos) {
+		SetCurrentDirectory(spath.substr(0, pos).c_str());
+	}
+#endif // _MSC_VER
+
+	if(!ReadInput("../data/input.txt")) return 1;
 	
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);

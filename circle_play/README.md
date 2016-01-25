@@ -16,6 +16,6 @@ by default data/input.txt gets loaded.
 		4: N (number of circles)
 		5 - (4 + N): the N circles
 
-- Project file is for Visual Studio 2015.
+- Project file is for Visual Studio 2015 and the Release config works out of the box.
 - Use config.h to enable/disable/tweak parts of the program compile time.
 - Todo: kd tree for faster intersection with circles and parallelism (multi-threaded)
