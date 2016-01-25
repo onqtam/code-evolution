@@ -1,0 +1,3 @@
+For transparent use #f0f0f0 (or 240,240,240 in decimal)
+
+Warning: Use exactly these values or the game system would not use them as expected.

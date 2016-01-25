@@ -1,0 +1,4 @@
+For background use #000000
+For exploding area use #f0f0f0 (or 240,240,240 in decimal)
+
+Add all explosions in list.lst
