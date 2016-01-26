@@ -1,7 +1,7 @@
 Pop Shots
 =======
 
-A Worms 'clone' - done in 5 months as a thesis in 12th grade when I was 18 - it is still not clear whether these are worms, peanuts or shits. This code can also be found [here](https://github.com/elsys/Victor_Kirilov_Worms)
+A Worms 'clone' - done in 5 months as a thesis in 12th grade when I was 18 - it is still not clear whether these are worms, peanuts or shits. This code can also be found [here](https://github.com/elsys/Victor_Kirilov_Worms).
 
 - Used SDL 1.2 (also SDL_image and SDL_ttf)
 - Made constructors with 17 parameters - [wtf](https://github.com/onqtam/old-stuff/blob/master/pop_shots/src/source/physicalobject.cc#L18).
