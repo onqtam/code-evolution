@@ -9,7 +9,7 @@ For example here is a screenshot of 6 paths from A to B with K = 2:
 
 - Not all paths are guaranteed to be found - adjust the precision and wait more time for the results
 - Project file is for Visual Studio 2015 in Release (also there is the pre-built ```Release/build.exe```).
-- Use ```config.h``` to enable/disable/tweak parts of the program compile time.
+- Use ```config.h``` to enable/disable/tweak parts of the program.
 - Todo: kd tree for faster intersection with circles and parallelism (multi-threaded).
 
 The program by default loads ```data/input.txt``` when started - it's format is:
