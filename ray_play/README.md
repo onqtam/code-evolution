@@ -40,30 +40,18 @@ There are 2 tricks I use to find more paths for roughly the same amount of time:
 
 |normal                                                    |adaptive precision                                           |
 |----------------------------------------------------------|-------------------------------------------------------------|
-|note how the rays spread more near the end of the circle  |note how the rays spread evenly even after they get reflected|
-|<img src="screens/test_normal.png" width="400" />         |<img src="screens/test_adaptive.png" width="400" />          |
+|the rays spread more near the end of the circle           |the rays spread evenly even after they get reflected         |
 |![](screens/test_normal.png)                              |![](screens/test_adaptive.png)                               |
 |29 paths found                                            |173 paths found                                              |
-|<img src="screens/real_normal_29_paths.png" width="400" />|<img src="screens/real_adaptive_173_paths.png" width="400" />|
+|![](screens/real_normal_29_paths.png)                     |![](screens/real_adaptive_173_paths.png)                     |
 
 - If point B ends up between 2 consecutively fired rays after K reflections but none of the rays 'hits' point B (meaning they aren't close enough to it) - then I start a binary search between these 2 rays until I hit point B.
 
-|normal                                                    |adaptive precision                                           |
+|normal                                                    |binary search in interval                                    |
 |----------------------------------------------------------|-------------------------------------------------------------|
-|note how the rays spread more near the end of the circle  |note how the rays spread evenly even after they get reflected|
-|<img src="screens/test_normal.png" width="400" />         |<img src="screens/test_adaptive.png" width="400" />          |
+|7 paths found                                             |39 paths found                                               |
+|![](screens/binary_off.png)                               |![](screens/binary_on.png)                                   |
 
-
-
-
-
-
-
-
-
-
-For example here is a screenshot of 8k paths from A to B with K = 16 (took a few minutes to find them with a step of 0.000009 radians)
+Here is an example of 8k paths from A to B with K = 16 (took a few minutes to find them with a step of 0.000009 radians and both tricks on)
 
 ![](screens/8K_paths_is_epic.png)
-
-
