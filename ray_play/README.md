@@ -8,6 +8,11 @@ Given a starting point A and an end point B find all ray paths between them whic
 - Use ```config.h``` to enable/disable/tweak parts of the program compile time.
 - Todo: kd tree for faster intersection with circles and parallelism (multi-threaded).
 
+For example here is a screenshot of 8k paths from A to B with K = 16 (took a few minutes to find them with a step of 0.000009 radians)
+
+![](screens/8K_paths_is_epic.png)
+<img src="screens/8K_paths_is_epic.png" width="500" />
+
 The program by default loads ```data/input.txt``` when started - it's format is:
 
 - line 1: point A
@@ -30,10 +35,10 @@ Controls:
 
 Basically I start firing rays from point A in every direction based on the precision used. When a ray has been reflected K times and goes near B within some small constant - I consider that a hit and the path is recorded.
 
-There are 3 tricks I use to speed up things:
+There are 2 tricks I use to find more paths for roughly the same amount of time:
 
-- I fire the initial rays from point A only in the directions in which there are circles.
-- I adjust the precision for the step (angle between rays fired from A) based on the angle between the last fired ray and the normal of the first hitpoint
+- I adjust the precision for the step (angle between rays fired from A) based on the angle between the last fired ray and the normal on the surface of it's first hitpoint.
+- If point B ends up between 2 consecutively fired rays after K reflections but none of the rays 'hits' point B (meaning they aren't close enough to it) - then I start a binary search between these 2 rays until I hit point B.
 
 
 
