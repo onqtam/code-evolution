@@ -33,7 +33,7 @@ Basically I start firing rays from point A in every direction based on the preci
 There are 3 tricks I use to speed up things:
 
 - I fire the initial rays from point A only in the directions in which there are circles.
-- I adjust the precision for the step based on the angle between the last fired ray and the 
+- I adjust the precision for the step (angle between rays fired from A) based on the angle between the last fired ray and the normal of the first hitpoint
 
 
 
