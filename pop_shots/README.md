@@ -15,7 +15,7 @@ A Worms 'clone' - done in 5 months as a thesis in 12th grade when I was 18 - it 
 Controls (the current worm has it's sight on):
 
 - Tab to switch the current worm
-- The arrow keys to to move the worm and his aim
+- The arrow keys to move the worm and his aim
 - Hold space to fire a weapon
 - Use 1/2 to switch between the bazooka and grenades
 - Enter to jump
