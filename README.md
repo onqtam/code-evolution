@@ -10,4 +10,5 @@ The interesting ones are in bold:
 |22/03/2010|[**Pop Shots**](pop_shots)              |C++     |**Worms 'clone' as thesis in 12th grade**   |
 |13/01/2012|[huffman](huffman)                      |C++     |huffman encoding for university             |
 |16/05/2013|[**ray play**](ray_play)                |C++     |**raytracing for a job interview**          |
+|04/04/2018|[**calculator**](calculator)            |C++     |**a calculator for a job interview**        |
 |present   |[onqtam](https://github.com/onqtam)     |*       |rest of my github                           |
