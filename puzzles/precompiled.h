@@ -17,6 +17,7 @@
 #include <numeric>
 
 using namespace std;
+using namespace std::string_literals;
 
 #define countof(x) (sizeof(x) / sizeof(x[0]))
 

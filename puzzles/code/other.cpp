@@ -1,21 +1,341 @@
 
+TEST_CASE("16_18_pattern_matching") {
+    // the pattern string consists of just letters a and b.
+    // "catcatgocatgo" matches "aabab", "ab", "a" and "b"
+
+    string val     = "catcatgocatgo";
+    string pattern = "aabab";
+
+    for(size_t i = 0; i < val.size(); ++i) {
+        // pick an 'a' from the start of the value string
+        string a = val.substr(0, i + 1);
+
+        // skip all consecutive 'a's based on the pattern
+        size_t pi      = 1;
+        size_t vi      = i + 1;
+        bool   matches = true;
+        while(pi < pattern.size() && pattern[pi] == pattern[pi - 1]) {
+            if(val.substr(vi, a.size()) == a) {
+                vi += a.size();
+                pi++;
+            } else {
+                matches = false;
+                break;
+            }
+        }
+
+        // if not all consecutive 'a's were matched to parts of the value
+        if(!matches)
+            continue;
+
+        bool reached_the_end = true;
+
+        if(pi < pattern.size()) {
+            reached_the_end = false;
+
+            // time to match 'b's
+            for(size_t k = vi; k < val.size() && !reached_the_end; ++k) {
+                // pick a 'b'
+                string b = val.substr(vi, k - vi + 1);
+
+                // try to match 'a's and 'b's till the end
+                size_t pi2 = pi;
+                size_t vi2 = vi;
+                while(true) {
+                    if(pattern[pi2] == 'a') {
+                        if(val.substr(vi2, a.size()) != a)
+                            break;
+                        vi2 += a.size();
+                    } else {
+                        if(val.substr(vi2, b.size()) != b)
+                            break;
+                        vi2 += b.size();
+                    }
+                    pi2++;
+                    if(pi2 == pattern.size() && vi2 == val.size()) {
+                        reached_the_end = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if(reached_the_end) {
+            cout << "its a match!" << endl;
+            break;
+        }
+    }
+}
+
+TEST_CASE("16_17_contiguous_sequence_max_sum") {
+    // find the largest sum of contiguous elements in an array
+
+    int a[] = {2, -8, 3, -2, 4, -10};
+
+    int max_sum = 0;
+    int sum     = 0;
+
+    for(int i = 0; i < countof(a); ++i) {
+        sum += a[i];
+        if(sum > max_sum)
+            max_sum = sum;
+        if(sum < 0)
+            sum = 0;
+    }
+
+    cout << max_sum << endl;
+}
+
+TEST_CASE("16_16_sub_sort") {
+    // find indexes M and N such that when you sort that range the entire array would be sorted (and minimize the distance between M and N)
+
+    int a[] = {1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19};
+
+    int f = 0;
+    int l = countof(a) - 1;
+
+    // get the extent of the already sorted begining and ending of the array
+    while(f < l && a[f] <= a[f + 1])
+        ++f;
+    while(l > f && a[l] >= a[l - 1])
+        --l;
+
+    int min_idx = min_element(a + f, a + l + 1) - a;
+    int max_idx = max_element(a + f, a + l + 1) - a;
+
+    // contract those 2 sorted ranges until all elements between the 2 ranges are bigger than the
+    // elements from the first range and smaller than the elements from the range at the end
+    while(a[min_idx] < a[f - 1] && f > 0)
+        f--;
+    while(a[max_idx] > a[l + 1] && l < countof(a) - 1)
+        l++;
+
+    cout << f << " " << l
+         << endl; // indexes are inclusive! meaning that the index to the last is not 1 past the last.. :D
+    sort(a + f, a + l + 1);
+    print_container(a);
+}
+
+TEST_CASE("16_15_mastermind") {
+    // count the number of direct hits (guesses)
+    // also count the number of pseudo hits (letters that exist but not at that specific position - hits cannot count as pseudo hits too!)
+
+    string real = "GGRR";
+
+    string opit = "RGBY";
+
+    vector<int> hit_mask(real.size());
+
+    int hits  = 0;
+    int close = 0;
+    for(size_t i = 0; i < opit.size(); ++i) {
+        if(real[i] == opit[i]) {
+            hits++;
+            hit_mask[i] = 1;
+        }
+    }
+
+    for(size_t i = 0; i < real.size(); ++i) {
+        if(hit_mask[i])
+            continue;
+
+        for(size_t k = 0; k < real.size(); ++k) {
+            if(hit_mask[k])
+                continue;
+
+            if(real[i] == opit[k]) {
+                close++;
+                break;
+            }
+        }
+    }
+
+    cout << hits << " " << close << endl;
+}
+
+TEST_CASE("16_1_inplace_number_swap") {
+    int a = 6;
+    int b = 41;
+
+    b = a - b;
+    a -= b;
+    b = a + b;
+
+    // and backwards - with XOR
+    a = a ^ b;
+    b = a ^ b;
+    a = a ^ b;
+
+    cout << a << " " << b << endl;
+}
+
+TEST_CASE("16_11_planks") {
+    // there are S short planks and L long ones (only 2 possible lengths)
+    // find the maximum number of different lengths (when concatenated) of K planks
+
+    const int S = 5;
+    const int L = 4;
+
+    int K = 6;
+
+    assert(S + L >= K);
+
+    int L_left = L - min(L, K);
+    int S_left = S;
+    if(L_left == 0)
+        S_left -= K - L;
+
+    while(L_left <= L && S_left >= 0) {
+        cout << "short: " << S - S_left << " long: " << L - L_left << endl;
+        L_left++;
+        S_left--;
+    }
+}
+
+TEST_CASE("16_10_living_people") {
+    // given a list of birth/death ranges calculate in which year there were most people alive
+    // if someone dies at year X and someone is born at that same year - both of them are in the count for that year
+
+    vector<pair<int, int>> pairs = {{7, 10}, {8, 11}, {8, 10}, {6, 8}, {10, 12}, {9, 12}};
+
+    map<int, pair<int, int>> yearly_changes;
+
+    for(auto& curr : pairs) {
+        yearly_changes[curr.first].first++;
+        yearly_changes[curr.second].second++;
+    }
+
+    int curr_alive = 0;
+    int max_alive  = 0;
+    for(auto& curr : yearly_changes) {
+        curr_alive += curr.second.first;
+        max_alive = max(max_alive, curr_alive);
+        curr_alive -= curr.second.second;
+    }
+
+    CHECK(max_alive == 5);
+}
+
+TEST_CASE("16_8_integer_to_words") {
+    int n = 12765987;
+
+    const char* small[] = {"one",     "two",     "three",     "four",     "five",    "six",      "seven",
+                           "eight",   "nine",    "ten",       "eleven",   "twelve",  "thirteen", "fourteen",
+                           "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
+    const char* tens[]  = {"twenty", "thirty", "fourty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+    const char* big[]   = {"hundred", "thousand", "million"};
+
+    int mils      = n / 1000000;
+    int thousands = n / 1000 % 1000;
+    int last      = n % 1000;
+
+    auto print_up_to_999 = [&](int num) {
+        assert(num < 1000);
+        string out;
+
+        if(num >= 100)
+            out += small[num / 100 - 1] + " "s + big[0];
+
+        int below_100 = num % 100;
+        if(below_100 > 0) {
+            if(!out.empty())
+                out += " ";
+            if(below_100 / 10 > 1)
+                out += tens[below_100 / 10 - 2];
+
+            int leftover = below_100 % (below_100 > 19 ? 10 : 20);
+            if(leftover) {
+                if(below_100 / 10 > 1)
+                    out += " ";
+                out += small[leftover - 1];
+            }
+        }
+
+        return out;
+    };
+
+    string result;
+    if(mils) {
+        result += print_up_to_999(mils) + " "s + big[2];
+        if(thousands)
+            result += " ";
+    }
+    if(thousands) {
+        result += print_up_to_999(thousands) + " "s + big[1];
+        if(last)
+            result += " ";
+    }
+    if(last)
+        result += print_up_to_999(last);
+
+    CHECK(result == "twelve million seven hundred sixty five thousand nine hundred eighty seven");
+}
+
+TEST_CASE("16_7_find_max_of_nums_without_conditionals_and_comparisons") {
+    int a = 43;
+    int b = 65;
+
+    // no
+}
+
+TEST_CASE("16_6_smallest_diff") {
+    // given 2 arrays of ints - find a pair of values (one from each array) such
+    // that the difference is the smallest non-negative - and return the difference
+
+    vector<int> a = {1, 2, 3, 11, 15};
+    vector<int> b = {8, 19, 23, 127, 235};
+
+    sort(a.begin(), a.end());
+    sort(b.begin(), b.end());
+
+    size_t ai   = 0;
+    size_t bi   = 0;
+    int    diff = INT_MAX;
+
+    while(ai < a.size() && bi < b.size()) {
+        if(abs(a[ai] - b[bi]) < diff)
+            diff = abs(a[ai] - b[bi]);
+
+        if(a[ai] < b[bi])
+            ++ai;
+        else
+            ++bi;
+    }
+
+    CHECK(diff == 3);
+}
+
+TEST_CASE("16_5_factorial_zeros") {
+    // find the number of trailing 0's of N factorial
+
+    auto find_num_trailing_zeroes_of_n_fact = [](int n) {
+        int num_times_divisible_by_five = 0;
+        for(int i = 1; i <= n; ++i) {
+            auto temp = i;
+            // there will be always more 2's dividing a number than 5's and therefore we need to only keep track of 5's
+            while(temp % 5 == 0) {
+                ++num_times_divisible_by_five;
+                temp /= 5;
+            }
+        }
+        return num_times_divisible_by_five;
+    };
+
+    CHECK(find_num_trailing_zeroes_of_n_fact(25) == 6);
+}
+
 TEST_CASE("largest_area_in_matrix") {
-    int a[][6] = {
-        {1, 3, 2, 2, 2, 4},
-        {3, 3, 3, 2, 4, 4},
-        {4, 3, 1, 2, 3, 3},
-        {4, 3, 1, 3, 3, 1},
-        {4, 3, 3, 3, 1, 1}};
-    
+    int a[][6] = {{1, 3, 2, 2, 2, 4}, {3, 3, 3, 2, 4, 4}, {4, 3, 1, 2, 3, 3}, {4, 3, 1, 3, 3, 1}, {4, 3, 3, 3, 1, 1}};
+
     vector<vector<bool>> flags(countof(a));
     for(size_t i = 0; i < flags.size(); ++i)
         flags[i].resize(countof(a[0]), false);
-    
+
     int curr;
     int curr_sum;
     int max_sum = 0;
 
-    std::function<void(int,int)> visit = [&](int i, int j) {
+    std::function<void(int, int)> visit = [&](int i, int j) {
         // check out of bounds
         if(i < 0 || i >= countof(a) || j < 0 || j >= countof(a[0]))
             return;
@@ -39,7 +359,7 @@ TEST_CASE("largest_area_in_matrix") {
             // if unvisited
             if(flags[i][j] == false) {
                 // initialize the variables for visitation
-                curr = a[i][j];
+                curr     = a[i][j];
                 curr_sum = 0;
                 // visit
                 visit(i, j);
@@ -55,17 +375,18 @@ TEST_CASE("largest_area_in_matrix") {
 
 TEST_CASE("2_4") {
     // UNSOLVED!!!
-    
-    struct Node {
+
+    struct Node
+    {
         Node* next;
-        int data;
+        int   data;
     };
 
     Node* head = new Node{nullptr, 0};
-    auto curr = head;
+    auto  curr = head;
     for(auto& c : {3, 5, 8, 5, 10, 2, 1}) {
-        curr->next =  new Node{nullptr, 3};
-        curr = curr->next;
+        curr->next = new Node{nullptr, 3};
+        curr       = curr->next;
     }
 
     int p = 5;
@@ -73,7 +394,6 @@ TEST_CASE("2_4") {
     curr = head;
     while(curr) {
         auto next = curr->next;
-
     }
     //++curr;
     //while(curr != l.end()) {
@@ -94,7 +414,7 @@ TEST_CASE("2_2_return_kth_to_last_elem_from_singly_linked_list") {
         l.push_back(i);
 
     int k = 20;
-    
+
     list<int>::iterator front = l.begin();
 
     int i = 0;
@@ -113,24 +433,20 @@ TEST_CASE("2_2_return_kth_to_last_elem_from_singly_linked_list") {
     } else {
         cout << "no can do! " << k << " " << l.size() << endl;
     }
-
 }
 
 TEST_CASE("1_8_zero_all_rows_and_columns_if_0_is_found") {
-    int a[][5] =    {{ 1,  2,  3,  4,  5}
-                    ,{ 6,  0,  8,  0, 10}
-                    ,{11, 12, 13, 14, 15}
-                    ,{16, 17, 18, 19,  0}
-                    ,{ 0, 22, 23, 24, 25}
-                    ,{26, 27, 28, 29, 30}};
+    int a[][5] = {{1, 2, 3, 4, 5},     {6, 0, 8, 0, 10},    {11, 12, 13, 14, 15},
+                  {16, 17, 18, 19, 0}, {0, 22, 23, 24, 25}, {26, 27, 28, 29, 30}};
 
     int max_dim = std::max(countof(a), countof(a[0]));
 
-    enum to_clear {
-        none = 0,
-        row = 1,
+    enum to_clear
+    {
+        none   = 0,
+        row    = 1,
         column = 2,
-        both = 4
+        both   = 4
     };
 
     vector<to_clear> row_column_mapping_to_clear(max_dim);
@@ -140,10 +456,10 @@ TEST_CASE("1_8_zero_all_rows_and_columns_if_0_is_found") {
     for(int i = 0; i < countof(a); ++i) {
         for(int k = 0; k < countof(a[0]); ++k) {
             //if(a[i][k] == 0)
-                //row_column_mapping_to_clear[]
+            //row_column_mapping_to_clear[]
         }
     }
-    
+
     for(int i = 0; i < countof(a); ++i) {
         for(int k = 0; k < countof(a[0]); ++k) {
             cout << setw(2) << a[i][k] << " ";
@@ -155,10 +471,7 @@ TEST_CASE("1_8_zero_all_rows_and_columns_if_0_is_found") {
 TEST_CASE("1_7_rotate_nxn_matrix_by_90_degrees") {
     // rotate a NxN matrix by 90 degrees
 
-    int a[][4] =    {{ 1,  2,  3,  4}
-                    ,{ 5,  6,  7,  8}
-                    ,{ 9, 10, 11, 12}
-                    ,{13, 14, 15, 16}};
+    int a[][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
     //int a[][5] =    {{ 1,  2,  3,  4,  5}
     //                ,{ 6,  7,  8,  9, 10}
     //                ,{11, 12, 13, 14, 15}
@@ -170,11 +483,11 @@ TEST_CASE("1_7_rotate_nxn_matrix_by_90_degrees") {
 
     for(int d = 0; d < size / 2; ++d) {
         for(int i = d; i < size - d - 1; ++i) {
-            auto temp = a[d][i];
-            a[d][i] = a[last - i][d];
-            a[last - i][d] = a[last - d][last - i];
+            auto temp             = a[d][i];
+            a[d][i]               = a[last - i][d];
+            a[last - i][d]        = a[last - d][last - i];
             a[last - d][last - i] = a[i][last - d];
-            a[i][last - d] = temp;
+            a[i][last - d]        = temp;
         }
     }
 
