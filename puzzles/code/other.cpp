@@ -1,10 +1,276 @@
 
+TEST_CASE("8_7_permute_string") {
+    // generate all possible permutations of the string of unique characters
+
+    string data = "1234";
+
+    function<void(const string&, string)> permute = [&](const string& str, string out) {
+        for(size_t i = 0; i < str.size(); ++i) {
+            auto sub = str;
+            sub.erase(i, 1);
+            permute(sub, out + str[i]);
+        }
+        if(str.size() == 0)
+            cout << out << endl;
+    };
+
+    permute(data, "");
+}
+
+TEST_CASE("8_4_all_subsets_of_set") {
+    // return all subsets of a set
+
+    set<char> data = {'1', '2', '3', '4'};
+
+    function<vector<set<char>>(set<char>)> recurse = [&](set<char> in) {
+        if(in.size()) {
+            // save a random element and remove it from the data set
+            auto start = in.begin();
+            auto taken_out = *start;
+            in.erase(start);
+            // generate all subsets of the remainder of the data set
+            auto res = recurse(in);
+            // copy that result
+            auto out = res;
+            // modify one of the 2 copies of the result by re-inserting the saved element from before in each of them
+            for(auto& curr : res) {
+                curr.insert(taken_out);
+                out.push_back(curr);
+            }
+            // merge the 2 now different copies into a single set
+            return out;
+        } else {
+            // return a vector with 1 set - the empty set
+            return vector<set<char>>(1);
+        }
+    };
+
+    auto res = recurse(data);
+    for(auto& curr : res)
+        print_container(curr);
+}
+
+TEST_CASE("8_3_magic_index") {
+    // find an index i such that i == a[i] in an array with sorted distinct integers
+    
+    vector<int> a = {-3, -2, -1, 2, 3, 5, 7, 9};
+
+    function<int(int, int)> search = [&](int left, int right) {
+        if(left > right)
+            return -1;
+
+        int mid = (left + right) / 2;
+        if(mid == a[mid])
+            return mid;
+
+        if(mid > a[mid])
+            return search(mid + 1, right);
+        return search(left, mid - 1);
+    };
+
+    cout << search(0, a.size() - 1) << endl;
+
+    // followup - what if the integers are not unique?
+    
+    //    0   1   2  3  4  5   6   7   8   9  10  11  12  13  14
+    a = {-3, -2, -1, 2, 3, 3, 12, 12, 12, 12, 12, 12, 12, 13, 15};
+
+    //     0   1  2  3  4  5  6  7  8   9  10
+    a = {-10, -5, 2, 2, 2, 3, 4, 8, 9, 12, 13};
+
+    function<int(int, int)> search2 = [&](int left, int right) {
+        if(left > right)
+            return -1;
+
+        int mid = (left + right) / 2;
+        if(mid == a[mid])
+            return mid;
+
+        int res = search2(left, min(mid - 1, a[mid]));
+        if(res == -1)
+            res = search2(max(mid + 1, a[mid]), right);
+        return res;
+    };
+
+    cout << search2(0, a.size() - 1) << endl;
+}
+
+TEST_CASE("8_2_robot_in_grid") {
+    // a robot is on the left top corner of a grid and wants to find his way to the bottom right
+    // he can move only down and right and there are obstacles - help him find a way
+
+    vector<vector<int>> grid = {{0, 0, 0, 0}, //
+                                {0, 1, 0, 1}, //
+                                {0, 0, 0, 1}, //
+                                {1, 0, 1, 0}, //
+                                {1, 0, 0, 0}};
+    
+    int rows = grid.size();
+    int cols = grid[0].size();
+
+    vector<vector<int>> visited(rows);
+    for(size_t i = 0; i < visited.size(); ++i)
+        visited[i].resize(cols, false);
+
+    function<bool(int, int)> go = [&](int r, int c) {
+        if(grid[r][c] || visited[r][c])
+            return false;
+        visited[r][c] = true;
+        if(r == rows - 1 && c == cols - 1)
+            return true;
+        
+        if(r < rows - 1) {
+            if(go(r + 1, c))
+                return true;
+        }
+        if(c < cols - 1) {
+            if(go(r, c + 1))
+                return true;
+        }
+        return false;
+    };
+
+    cout << std::boolalpha << go(0,0) << endl;
+}
+
+TEST_CASE("8_1_tripple_step") {
+    // there are n steps. you either make 1, 2 or 3 steps in one move
+    // in how many different ways can you go through all n steps?
+
+    int n = 6;
+
+    vector<int> steps(n);
+    steps[0] = 1;
+    steps[1] = 2;
+    steps[2] = 4;
+    for(int i = 3; i < n; ++i)
+        steps[i] = steps[i - 1] + steps[i - 2] + steps[i - 3];
+
+    cout << steps[n - 1] << endl;
+}
+
+TEST_CASE("16_21_sum_swap") {
+    // find a pair of values from the 2 arrays such that when swapped the sums of the 2 arrays are equal
+    
+    vector<int> a = {4, 1, 2, 1, 1, 2}; // 11
+    vector<int> b = {3, 6, 3, 3}; // 15
+    
+    auto& smaller = a.size() < b.size() ? a : b;
+    auto& bigger = a.size() < b.size() ? b : a;
+
+    sort(smaller.begin(), smaller.end()); // or instead of sorting the shorter array and getting an O(S*log(S)) we might use a hash table
+    
+    int sum_sm = accumulate(smaller.begin(), smaller.end(), 0);
+    int sum_bg = accumulate(bigger.begin(), bigger.end(), 0);
+    assert((sum_bg - sum_sm) % 2 == 0);
+
+    int diff = (max(sum_bg, sum_sm) - min(sum_bg, sum_sm)) / 2;
+
+    for(auto& curr : bigger) {
+        auto it = find(smaller.begin(), smaller.end(), curr + diff);
+        if(it != smaller.end()) {
+            cout << "found it! " << curr << " " << *it << endl;
+            break;
+        }
+    }
+}
+
+TEST_CASE("16_24_pairs_with_sum") {
+    // find all pairs of integers in an array that sum to a specific value
+
+    int a[] = {6, 4, 2, 8, 2, 34, 12, 43, 21, 34, 23, 43, 18, 17, 26, 32, 10, 19, 17, 7, 2, 8, 6, 2, 5, 3, 9};
+
+    // hash map - or the following...
+
+    int target = 30;
+
+    sort(a, a + countof(a));
+
+    int first = 0;
+    int last = countof(a) - 1;
+    while(first < last) {
+        int sum = a[first] + a[last];
+        if(sum == target) {
+            cout << a[first] << " " << a[last] << endl;
+            first++;
+            last--;
+        } else {
+            if(sum < target)
+                first++;
+            else
+                last--;
+        }
+    }
+}
+
+TEST_CASE("16_26_calculator") {
+    // evaluate simple expressions with +,-,*,/ and no parentheses
+
+    string exp = "2*3+5/6*3+15";
+
+    // TODO: https://en.wikipedia.org/wiki/Shunting-yard_algorithm
+
+    //vector<double> numbers;
+    //vector<char> ops;
+
+    //auto rank = [](char c) {
+    //    if(c == '+' || c == '-')
+    //        return 0;
+    //    return 1;
+    //};
+
+    //auto do_op = [](char c, double l, double r) {
+    //    if(c == '+')
+    //        return l + r;
+    //    if(c == '-')
+    //        return l - r;
+    //    if(c == '*')
+    //        return l * r;
+    //    return l / r;
+    //};
+
+    //for(auto& c : exp) {
+    //    if(c >= '0' && c <= '9') {
+    //        numbers.push_back(c - '0');
+    //    } else {
+    //        //if(ops.size()) {
+    //        vector<char> op_temp;
+    //            while(ops.size() && rank(c) < rank(ops.back())) {
+    //                op_temp.push_back(ops.back());
+    //                ops.pop_back();
+    //            }
+    //            while(op_temp.size()) {
+    //                auto num = numbers.back();
+    //                numbers.pop_back();
+    //                numbers.back() = do_op(op, numbers.back(), num);
+    //            }
+    //            ops.push_back(c);
+    //        //} else {
+    //        //    ops.push_back(c);
+    //        //}
+    //    }
+    //}
+
+    //while(ops.size()) {
+    //    auto op = ops.back();
+    //    ops.pop_back();
+
+    //    auto num = numbers.back();
+    //    numbers.pop_back();
+    //    numbers.back() = do_op(op, numbers.back(), num);
+    //}
+
+    //cout << numbers.back() << endl;
+}
+
 TEST_CASE("16_18_pattern_matching") {
     // the pattern string consists of just letters a and b.
     // "catcatgocatgo" matches "aabab", "ab", "a" and "b"
 
+    // TODO: optimize it further... think more - once we have picked an 'a' - we have automatically picked 'b' as well...
+
     string val     = "catcatgocatgo";
-    string pattern = "aabab";
+    string pattern = "aabab"; // TODO: make it work with inverted patterns - like "bbaba"
 
     for(size_t i = 0; i < val.size(); ++i) {
         // pick an 'a' from the start of the value string

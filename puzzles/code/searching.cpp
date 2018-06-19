@@ -79,6 +79,18 @@ TEST_CASE("iterative_binary_search") {
     cout << find(9) << endl;
 }
 
+TEST_CASE("10_9_sorted_matrix") {
+    // given a sorted MxN matrix where each row and column is sorted in ascending order - implement a searching function
+    //
+    //  1  3  5  8 26 24
+    //  2  3  6  9 19 20
+    //  4  6  7 12 21 22
+    // 20 23 32 34 39 80
+    // 35 36 40 52 60 82
+
+
+}
+
 TEST_CASE("10_11_peaks_and_valleys") {
     // a peak is an element which is bigger or equal to its adjacent elements.
     // a valley is an element which is smaller or equal to its adjacent elements.
@@ -197,7 +209,7 @@ TEST_CASE("10_4_sorted_search_no_size") {
     cout << find(45) << endl; // 13
 }
 
-TEST_CASE("10_3_search_in_sorted_array") {
+TEST_CASE("10_3_search_in_sorted_and_shifted_array") {
     // write a search function given a sorted array of integers that has then been rotated an unknown number of times
 
     vector<int> a = {15, 16, 19, 20, 25, 1, 3, 4, 5, 7, 10, 14};

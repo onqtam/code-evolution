@@ -9,7 +9,7 @@ int main() {
     doctest::Context context;
 
     //CALL_TEST_CASE("iterative_binary_search");
-    CALL_TEST_CASE("16_18_pattern_matching");
+    CALL_TEST_CASE("8_4_all_subsets_of_set");
 
     auto out = context.run();
 

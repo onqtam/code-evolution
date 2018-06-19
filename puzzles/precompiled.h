@@ -21,7 +21,9 @@ using namespace std::string_literals;
 
 #define countof(x) (sizeof(x) / sizeof(x[0]))
 
-#define print_container(a)                                                                         \
-    for(auto& curr : a)                                                                            \
-        cout << curr << " ";                                                                       \
-    cout << endl
+#define print_container(a)                                                                                             \
+    do {                                                                                                               \
+        for(auto& curr : a)                                                                                            \
+            cout << curr << " ";                                                                                       \
+        cout << endl;                                                                                                  \
+    } while(false)
