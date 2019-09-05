@@ -840,12 +840,12 @@ TEST_CASE("find_smallest_positive_non_occurring_element") {
 }
 
 TEST_CASE("badass") {
-    //Злодей си е намислил едно число между 1 и RAND_MAX. Може да го питаш въпроси от рода на "числото ти едно от тези ли е?".
-    //Той обаче може в отговора си да те лъже. Но не повече от 9 последователни пъти.
-    //Може да те лъже хиляди пъти, но не и 10 поредни. Може да ти казва истината колкото пъти иска.
-    //Ето ти примерен код за злодей: https://pastebin.com/ZBmh7g1K
-    //Задачата е да напишеш алгоритъм, който да сведе възможните числа за неговото до 512.
-    //В примерния код да извикаш final_guess функцията и тя да върне true
+    //Г‡Г«Г®Г¤ГҐГ© Г±ГЁ ГҐ Г­Г Г¬ГЁГ±Г«ГЁГ« ГҐГ¤Г­Г® Г·ГЁГ±Г«Г® Г¬ГҐГ¦Г¤Гі 1 ГЁ RAND_MAX. ГЊГ®Г¦ГҐ Г¤Г  ГЈГ® ГЇГЁГІГ Гё ГўГєГЇГ°Г®Г±ГЁ Г®ГІ Г°Г®Г¤Г  Г­Г  "Г·ГЁГ±Г«Г®ГІГ® ГІГЁ ГҐГ¤Г­Г® Г®ГІ ГІГҐГ§ГЁ Г«ГЁ ГҐ?".
+    //Г’Г®Г© Г®ГЎГ Г·ГҐ Г¬Г®Г¦ГҐ Гў Г®ГІГЈГ®ГўГ®Г°Г  Г±ГЁ Г¤Г  ГІГҐ Г«ГєГ¦ГҐ. ГЌГ® Г­ГҐ ГЇГ®ГўГҐГ·ГҐ Г®ГІ 9 ГЇГ®Г±Г«ГҐГ¤Г®ГўГ ГІГҐГ«Г­ГЁ ГЇГєГІГЁ.
+    //ГЊГ®Г¦ГҐ Г¤Г  ГІГҐ Г«ГєГ¦ГҐ ГµГЁГ«ГїГ¤ГЁ ГЇГєГІГЁ, Г­Г® Г­ГҐ ГЁ 10 ГЇГ®Г°ГҐГ¤Г­ГЁ. ГЊГ®Г¦ГҐ Г¤Г  ГІГЁ ГЄГ Г§ГўГ  ГЁГ±ГІГЁГ­Г ГІГ  ГЄГ®Г«ГЄГ®ГІГ® ГЇГєГІГЁ ГЁГ±ГЄГ .
+    //Г…ГІГ® ГІГЁ ГЇГ°ГЁГ¬ГҐГ°ГҐГ­ ГЄГ®Г¤ Г§Г  Г§Г«Г®Г¤ГҐГ©: https://pastebin.com/ZBmh7g1K
+    //Г‡Г Г¤Г Г·Г ГІГ  ГҐ Г¤Г  Г­Г ГЇГЁГёГҐГё Г Г«ГЈГ®Г°ГЁГІГєГ¬, ГЄГ®Г©ГІГ® Г¤Г  Г±ГўГҐГ¤ГҐ ГўГєГ§Г¬Г®Г¦Г­ГЁГІГҐ Г·ГЁГ±Г«Г  Г§Г  Г­ГҐГЈГ®ГўГ®ГІГ® Г¤Г® 512.
+    //Г‚ ГЇГ°ГЁГ¬ГҐГ°Г­ГЁГї ГЄГ®Г¤ Г¤Г  ГЁГ§ГўГЁГЄГ Гё final_guess ГґГіГ­ГЄГ¶ГЁГїГІГ  ГЁ ГІГї Г¤Г  ГўГєГ°Г­ГҐ true
 
     //srand(time(NULL));
 
@@ -888,17 +888,17 @@ TEST_CASE("badass") {
 }
 
 TEST_CASE("granny") {
-    //Имаш начален стринг съставен от а и б и краен стринг съставен от а и б. Имаш два вида валидни операции
-    //х) Добавяш а в края на стринга
-    //у) Обръщаш стринга и му добавяш б в края
-    //Можеш ли да получиш началния от крайния?
+    //Г€Г¬Г Гё Г­Г Г·Г Г«ГҐГ­ Г±ГІГ°ГЁГ­ГЈ Г±ГєГ±ГІГ ГўГҐГ­ Г®ГІ Г  ГЁ ГЎ ГЁ ГЄГ°Г ГҐГ­ Г±ГІГ°ГЁГ­ГЈ Г±ГєГ±ГІГ ГўГҐГ­ Г®ГІ Г  ГЁ ГЎ. Г€Г¬Г Гё Г¤ГўГ  ГўГЁГ¤Г  ГўГ Г«ГЁГ¤Г­ГЁ Г®ГЇГҐГ°Г Г¶ГЁГЁ
+    //Гµ) Г„Г®ГЎГ ГўГїГё Г  Гў ГЄГ°Г Гї Г­Г  Г±ГІГ°ГЁГ­ГЈГ 
+    //Гі) ГЋГЎГ°ГєГ№Г Гё Г±ГІГ°ГЁГ­ГЈГ  ГЁ Г¬Гі Г¤Г®ГЎГ ГўГїГё ГЎ Гў ГЄГ°Г Гї
+    //ГЊГ®Г¦ГҐГё Г«ГЁ Г¤Г  ГЇГ®Г«ГіГ·ГЁГё Г­Г Г·Г Г«Г­ГЁГї Г®ГІ ГЄГ°Г Г©Г­ГЁГї?
     //
-    //Примерно
-    //вход: аб, баба
-    //изход: ДА! (щото ако почнеш от първия с операции y и после x успяваш)
+    //ГЏГ°ГЁГ¬ГҐГ°Г­Г®
+    //ГўГµГ®Г¤: Г ГЎ, ГЎГ ГЎГ 
+    //ГЁГ§ГµГ®Г¤: Г„ГЂ! (Г№Г®ГІГ® Г ГЄГ® ГЇГ®Г·Г­ГҐГё Г®ГІ ГЇГєГ°ГўГЁГї Г± Г®ГЇГҐГ°Г Г¶ГЁГЁ y ГЁ ГЇГ®Г±Г«ГҐ x ГіГ±ГЇГїГўГ Гё)
     //
-    //вход аб, бааба
-    //изход: НЕ! (не може от този начален стринг да получиш този краен с операции х и у)
+    //ГўГµГ®Г¤ Г ГЎ, ГЎГ Г ГЎГ 
+    //ГЁГ§ГµГ®Г¤: ГЌГ…! (Г­ГҐ Г¬Г®Г¦ГҐ Г®ГІ ГІГ®Г§ГЁ Г­Г Г·Г Г«ГҐГ­ Г±ГІГ°ГЁГ­ГЈ Г¤Г  ГЇГ®Г«ГіГ·ГЁГё ГІГ®Г§ГЁ ГЄГ°Г ГҐГ­ Г± Г®ГЇГҐГ°Г Г¶ГЁГЁ Гµ ГЁ Гі)
 
     //string in = "ab";
     //string out = "baba";
@@ -930,17 +930,17 @@ TEST_CASE("granny") {
 }
 
 TEST_CASE("construct_sentence") {
-    //Имаш стринг (например helloworld) и речник (например {hell, o, world, hello, hellow, ld} ) дай
-    //бройката начини по които може да се образува изречение с думи от речника което изцяло използва входа.
+    //Г€Г¬Г Гё Г±ГІГ°ГЁГ­ГЈ (Г­Г ГЇГ°ГЁГ¬ГҐГ° helloworld) ГЁ Г°ГҐГ·Г­ГЁГЄ (Г­Г ГЇГ°ГЁГ¬ГҐГ° {hell, o, world, hello, hellow, ld} ) Г¤Г Г©
+    //ГЎГ°Г®Г©ГЄГ ГІГ  Г­Г Г·ГЁГ­ГЁ ГЇГ® ГЄГ®ГЁГІГ® Г¬Г®Г¦ГҐ Г¤Г  Г±ГҐ Г®ГЎГ°Г Г§ГіГўГ  ГЁГ§Г°ГҐГ·ГҐГ­ГЁГҐ Г± Г¤ГіГ¬ГЁ Г®ГІ Г°ГҐГ·Г­ГЁГЄГ  ГЄГ®ГҐГІГ® ГЁГ§Г¶ГїГ«Г® ГЁГ§ГЇГ®Г«Г§ГўГ  ГўГµГ®Г¤Г .
     //
-    //С примерните данни е: 2
-    //(hell o world  и  hello world)
+    //Г‘ ГЇГ°ГЁГ¬ГҐГ°Г­ГЁГІГҐ Г¤Г Г­Г­ГЁ ГҐ: 2
+    //(hell o world  ГЁ  hello world)
     //
-    //Друг пример dodoremi {do, re, mi, fa, sol, dodo}: 2
-    //( do do re mi и dodo re mi )
+    //Г„Г°ГіГЈ ГЇГ°ГЁГ¬ГҐГ° dodoremi {do, re, mi, fa, sol, dodo}: 2
+    //( do do re mi ГЁ dodo re mi )
     //
-    //Търси се бройката, а не конкретните изречения. Забележи че бройката може да е някакво гигантско число
-    //примерно в xxxx (1000 Пъти) и речник {x, xx, xxx, xxxx, …. } има някакви бразилиони възможни изречения
+    //Г’ГєГ°Г±ГЁ Г±ГҐ ГЎГ°Г®Г©ГЄГ ГІГ , Г  Г­ГҐ ГЄГ®Г­ГЄГ°ГҐГІГ­ГЁГІГҐ ГЁГ§Г°ГҐГ·ГҐГ­ГЁГї. Г‡Г ГЎГҐГ«ГҐГ¦ГЁ Г·ГҐ ГЎГ°Г®Г©ГЄГ ГІГ  Г¬Г®Г¦ГҐ Г¤Г  ГҐ Г­ГїГЄГ ГЄГўГ® ГЈГЁГЈГ Г­ГІГ±ГЄГ® Г·ГЁГ±Г«Г®
+    //ГЇГ°ГЁГ¬ГҐГ°Г­Г® Гў xxxx (1000 ГЏГєГІГЁ) ГЁ Г°ГҐГ·Г­ГЁГЄ {x, xx, xxx, xxxx, В…. } ГЁГ¬Г  Г­ГїГЄГ ГЄГўГЁ ГЎГ°Г Г§ГЁГ«ГЁГ®Г­ГЁ ГўГєГ§Г¬Г®Г¦Г­ГЁ ГЁГ§Г°ГҐГ·ГҐГ­ГЁГї
 
     set<string> dict{"hell", "o", "world", "hello", "hellow", "ld", "wo", "r"};
     string      target{"helloworld"};
@@ -1013,7 +1013,7 @@ TEST_CASE("construct_sentence") {
 }
 
 TEST_CASE("reverse_singly_linked_list") {
-    // Обърни едносвързан списък struct elem { elem* next; }; next e nullptr за последния елемент.
+    // ГЋГЎГєГ°Г­ГЁ ГҐГ¤Г­Г®Г±ГўГєГ°Г§Г Г­ Г±ГЇГЁГ±ГєГЄ struct elem { elem* next; }; next e nullptr Г§Г  ГЇГ®Г±Г«ГҐГ¤Г­ГЁГї ГҐГ«ГҐГ¬ГҐГ­ГІ.
     struct elem
     {
         elem* next;
@@ -1044,3 +1044,147 @@ TEST_CASE("reverse_singly_linked_list") {
         curr = curr->next;
     }
 }
+
+
+/*
+
+// You have N slots to fill. You can't fill a slot if a slot next to it is already filled. What is the average number of filled slots for N?
+// Example: for 100 slots the best fill is to have 50 filled slots - 1 in every 2, but the worse fill would be 34 if we fill the first slot in every 3 (making the other 2 unusable)
+
+int func(int N) {
+    bitset<bool> slots(N, 1);
+    int freeSlots = N;
+    int res = 0;
+
+    auto fill = [&](int i) {
+        int curr = 0;
+        int num_free_so_far = 0;
+
+        while(num_free_so_far < i) {
+            if(slots[curr]) {
+                num_free_so_far++;
+            }
+            ++curr;
+        }
+        --curr;
+
+        slots[curr] = false;
+        --freeSlots;
+        if(curr > 0) {
+            --freeSlots;
+            slots[curr - 1] = false;
+        }
+        if(curr < N - 1) {
+            --freeSlots;
+            slots[curr + 1] = false;
+        }
+    };
+
+    while(freeSlots) {
+        fill(rand() % freeSlots);
+        ++res;
+    }
+
+    return res;
+}
+
+float brute_force_simulation(int N, int iter) {
+    int accum = 0;
+    for(int i = 0; i < iter; )i) {
+        accum += func(N);
+    }
+    return (float)accum / (iter);
+}
+
+void test() {
+    CHECK(abs(other_func(2, 1000) - 1.f) < 0.0001f);
+
+    // this is a rough constraint - come up with better
+    CHECK(other_func(3, 1000) > 3 * 0.5f);
+    CHECK(other_func(3, 1000) < 3 * 0.66666666666666666f);
+
+    CHECK(other_func(4, 1000) > 3 * ..);
+    // TODO: test it properly
+}
+
+*/
+
+/*
+
+// you have K number of streams (not necessarily equal in length) with sorted numbers. Merge them.
+
+K = 3
+1 2 2 2 3 4 4 4 4 4 5
+5 5 6 7 7 7 8
+2 3 5 5 6 7 7 7 8
+
+struct NumberedStream {
+    NumberedStream() = default;
+    int pop();
+    int peek() const;
+    bool end() const;
+};
+
+struct PriorityQueue {
+    PriorityQueue(comparator...);
+    int peek() const;
+    int pop();
+    void push(int);
+
+    bool empty() const;
+};
+
+// O(N * log(K))
+void mergeStreamsVersion2(vector<NumberedStream>& streams) {
+    auto comp = [&](size_t lhs, size_t rhs) {
+        return streams[lhs].peek() < streams[rhs].peek();
+    };
+
+    PriorityQueue queue(comp);
+
+    for(size_t i = 0; i < streams.size(); ++i) {
+        if(!streams[i].end()) {
+            queue.push(i);
+        }
+    }
+
+    while(!queue.empty()) {
+        auto curr_idx = queue.pop();
+        cout << streams[curr_idx] << " ";
+        if(!streams[curr_idx].empty())
+            queue.push(curr_idx);
+    }
+}
+
+// O(N * K)
+void mergeStreams(vector<NumberedStream>& streams) {
+    bool finished = false;
+
+    while(!finished) {
+        finished = true;
+        int smallest = INT_MAX;
+        size_t curr_smallest = 0; // << take care of this
+        for(size_t i = 0; i < streams.size(); ++i) {
+            if(!streams[i].end()) {
+                finished = false;
+                if(smallest >= streams[i].peek()) {
+                    smallest = streams[i].peek();
+                    curr_smallest = i;
+                }
+            }
+        }
+        if(!finished)
+            cout << streams[curr_smallest].pop() << " ";
+    }
+}
+
+// TODO: figure how to make this optimal...
+bool isPowOf7(unsigned in) {
+    while(in % 7 == 0) {
+        in /= 7;
+    }
+    return in == 1;
+}
+
+*/
+
