@@ -1188,3 +1188,173 @@ bool isPowOf7(unsigned in) {
 
 */
 
+// ===============================================================================
+
+int bsearch_impl(int val, int low, int high, const vector<int>& data) {
+    if(low < high) {
+        int med = (low + high) / 2;
+        if(data[med] < val)
+            return bsearch_impl(val, med + 1, high, data);
+        if(data[med] > val)
+            return bsearch_impl(val, low, med, data);
+        return med;
+    }
+    return -1;
+}
+
+int bsearch(int val, const vector<int>& data) {
+    return bsearch_impl(val, 0, data.size(), data);
+}
+
+void do_bsearch() {
+    vector<int> data = {1,  3,  5, 6, 6, 6, 6, 12, 13, 16, 24};
+    cout << bsearch(5, data);
+}
+
+// ===============================================================================
+
+struct node {
+    int data;
+    node* l;
+    node* r;
+};
+
+void add(int val, node* root) {
+    if(root->data < val) {
+        if(root->r == nullptr) {
+            root->r = new node{val, nullptr, nullptr};
+        } else {
+            add(val, root->r);
+        }
+    } else if(root->data > val) {
+        if(root->l == nullptr) {
+            root->l = new node{val, nullptr, nullptr};
+        } else {
+            add(val, root->l);
+        }
+    } else {
+        cout << "val " << val << " already in bstree!" << endl;
+    }
+}
+
+node* find(int val, node* root) {
+    if(root == nullptr) return nullptr;
+    if(root->data < val) return find(val, root->r);
+    if(root->data > val) return find(val, root->l);
+    return root;
+}
+
+void do_bst() {
+    node* root1 = new node{5, nullptr, nullptr};
+    add(1, root1);
+    add(10, root1);
+    add(0, root1);
+    add(4, root1);
+    add(7, root1);
+    add(9, root1);
+    
+    cout << find(9, root1) << endl;
+    cout << find(1, root1) << endl;
+    cout << find(20, root1) << endl;
+}
+
+// ===============================================================================
+
+void get_union_of_ranges_inplace(vector<pair<int, int>>& ranges) {
+    sort(ranges.begin(), ranges.end(), [](auto& l, auto& r) { return l.first < r.first; });
+    
+    for(int i = 1; i < ranges.size(); ++i) {
+        if(ranges[i - 1].second >= ranges[i].first) {
+            ranges[i - 1].second = max(ranges[i - 1].second, ranges[i].second);
+            // this inplace version is suboptimal because of all the shuffling of
+            // elements in the vector each time we erase - consider using a stack
+            ranges.erase(ranges.begin() + i);
+            --i;
+        }
+    }
+}
+
+void do_compute_interval_intersection() {
+    // https://www.geeksforgeeks.org/merging-intervals/
+    // Given an array of intervals ({1, 4}, {3, 5}, {7,10}, {6, 12}) return an array of intervals that
+    // covers the union of all initial intervals but with no overlap. For example: ({1,5}, {6,12}).
+    
+    vector<pair<int, int>> ranges = {{1, 4}, {3, 5}, {7, 10}, {6, 12}};
+    
+    get_union_of_ranges_inplace(ranges);
+    // the result is the ranges container itself
+}
+
+// ===============================================================================
+
+void do_find_all_available_timeslots() {
+    // given the schedules of 2 people and the boundries for their workdays find all
+    // slots of some amount of time when a new meeting for both of them can be scheduled
+    using ranges = vector<pair<int, int>>;
+    
+    ranges busy1 = {{9, 10}, {12, 13}, {16, 18}};
+    ranges busy2 = {{10, 11}, {12, 14}, {14, 15}, {16, 17}};
+    
+    pair<int, int> allowance1 = {9, 20};
+    pair<int, int> allowance2 = {10, 19};
+    pair<int, int> allowance = {max(allowance1.first, allowance2.first), min(allowance1.second, allowance2.second)};
+    // the union of the allowance is 10 - 19
+    
+    int amount = 1; // we want to find all possible 1 hour meeting schedules
+    
+    // step 1. merge the 2 lists of ranges
+    ranges merged;
+    merged.reserve(busy1.size() + busy2.size());
+    merged.insert(merged.end(), busy1.begin(), busy1.end());
+    merged.insert(merged.end(), busy2.begin(), busy2.end());
+    // step 2. make their union (using whatever is in the previous task)
+    get_union_of_ranges_inplace(merged);
+    // step 3. compute the inverse of the union & take into account the allowance + the time required for a meeting
+    
+    // TODO: finish this...
+}
+
+// ===============================================================================
+
+void do_find_all_rectangles_in_a_set_of_points() {
+    // find all recatangles which can be found in a set of points - only on the X/Y axis and no rotation involved!
+    // https://www.youtube.com/watch?v=EuPSibuIKIg
+    vector<pair<int, int>> points = {{0, 0}, {0, 1}, {2, 0}, {2, 1}, {3, 0}, {3, 1}};
+    // .    .  .
+    // .    .  .
+    // there should be 3 rectangles in total
+    int answer = 0;
+    map<pair<int, int>, int> count;
+    for(auto& p : points) {
+        for(auto& p_above : points) {
+            // if we find a vertical line with specific Y coords (X doesn't matter) - add to the answer the number of other
+            // already found such vertical lines with the same Y coors because the newly found line forms that many new rectangles
+            if(p.first == p_above.first && p.second < p_above.second) {
+                answer += count[{p.second, p_above.second}]++;
+            }
+        }
+    }
+    cout << answer << endl;
+}
+
+// ===============================================================================
+
+void do_find_missing_between_sets() {
+    // find the missing element from 2 sequences with unique elements
+    vector<int> full = {1,  7,  5, 24, 13, 6, 12, 16};
+    vector<int> part = {1,  7,  5, 24, 6, 12, 16};
+    
+    sort(full.begin(), full.end());
+    sort(part.begin(), part.end());
+    
+    for(int i = 0; i < part.size(); ++i) {
+        if(full[i] != part[i]) {
+            cout << full[i] << endl; // the result!
+            return;
+        }
+    }
+    
+    cout << full.back() << endl; // the result!
+}
+
+// ===============================================================================
