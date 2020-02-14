@@ -11,6 +11,5 @@ The interesting ones are in bold:
 |13/01/2012|[huffman](huffman)                      |C++     |huffman encoding for university             |
 |16/05/2013|[**ray play**](ray_play)                |C++     |**raytracing for a job interview**          |
 |04/04/2018|[**calculator**](calculator)            |C++     |**a calculator for a job interview**        |
-|14/02/2019|[external sort](external_sort)          |C++     |external sort for a job interview           |
 |present   |[puzzles](puzzles)                      |C++     |solutions to different coding puzzles       |
 |present   |[onqtam](https://github.com/onqtam)     |*       |rest of my github                           |
