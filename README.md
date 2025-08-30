@@ -11,5 +11,6 @@ The interesting ones are in bold:
 |13/01/2012|[huffman](huffman)                      |C++     |huffman encoding for university             |
 |16/05/2013|[**ray play**](ray_play)                |C++     |**raytracing for a job interview**          |
 |04/04/2018|[**calculator**](calculator)            |C++     |**a calculator for a job interview**        |
+|06/02/2020|[**parallel sort**](parallel_sort)      |C++     |**parallel sort with the seastar async framework for a job interview**|
 |present   |[puzzles](puzzles)                      |C++     |solutions to different coding puzzles       |
 |present   |[onqtam](https://github.com/onqtam)     |*       |rest of my github                           |
